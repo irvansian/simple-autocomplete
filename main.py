@@ -8,14 +8,27 @@ if __name__ == "__main__":
     with open("dict.txt", "r") as f:
         for line in f:
             autoTrie.add(line.strip())
-    
-    numSuggegstions = int(input("Suggestions: "))
-    
+
+    print("\033[34mA simple in-memory autocompleter. Type /exit to exit the terminal." +
+        "\nFirst put in the number of suggestions you want.\033[0m")
+
+    numInput = input("> ")
+    numSuggestions = 3
+
+    if numInput == "/exit":
+        exit()
+    elif numInput.isdigit():
+        numSuggestions = int(numInput)
+    else:
+        print("\033[34mYou didn\'t type a number. Num of suggestions is 3 (default).\n\033[0m")
+
+    print("\033[34mWrite the word you want to autocomplete on.\033[0m")
+
     while True:
-        inputWord = input("Enter word: ")
+        inputWord = input("> ")
         
         if inputWord == '/exit':
             break
 
-        suggestions = AutoCompleter.suggestWords(autoTrie, inputWord, numSuggegstions)
+        suggestions = AutoCompleter.suggestWords(autoTrie, inputWord, numSuggestions)
         printSuggestions(suggestions)
